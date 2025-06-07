@@ -8,8 +8,6 @@ function App() {
 
   return (
     <>
-     <body class="bg-gray-100 text-white">
-
   <header class="bg-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <div class="flex space-x-8 text-gray-800">
@@ -434,7 +432,6 @@ function App() {
 
   </div>
 </section>
-</body>
     </>
   )
 }
