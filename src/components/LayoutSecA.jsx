@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import LearnButton from './LearnButton';
 
-function LayoutSecA({heading,subHeading,desc, desca, descb }){
+function LayoutSecA({heading,subHeading,desc, desca, descb, image }){
   return (
     <>
         <section className="bg-white text-gray-800 py-20 px-4 w-full">
             <div className="w-full grid md:grid-cols-2 gap-10 items-center">
               <div className="aspect-square w-full bg-gray-200 rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/400" alt="Google Login Preview" className="w-full h-full object-cover"/>
+                <img src={image} alt="Google Login Preview" className="w-full h-full object-cover"/>
               </div>
               <div>
                 <p className="text-sm text-purple-600 font-semibold mb-2">{heading}</p>

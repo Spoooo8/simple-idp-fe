@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import LearnButton from './LearnButton';
 
-function LayoutSecB({heading,subHeading,desc }){
+function LayoutSecB({heading,subHeading,desc,image }){
   return (
     <>
         
@@ -25,7 +25,7 @@ function LayoutSecB({heading,subHeading,desc }){
               </div>
               <div className="w-full md:w-1/2">
                 <div className="aspect-square w-full bg-gray-200 rounded-lg overflow-hidden shadow-md">
-                  <img src="https://via.placeholder.com/400x400" alt="Google Login Preview" className="w-full h-full object-cover"/>
+                  <img src={image} alt="Google Login Preview" className="w-full h-full object-cover"/>
                 </div>
               </div>
             </div>
