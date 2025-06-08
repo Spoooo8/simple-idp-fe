@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Navigation from '../components/Navigation'
 import HeroSection from '../components/HeroSection';
-import LayoutSecA from '../components/LayoutSeca';
+import LayoutSecA from '../components/LayoutSecA';
 import LayoutSecB from '../components/LayoutSecB';
 import LayoutSecCard from '../components/LayoutSecCard'
 import layoutSecData  from '../data/layoutSecData';
