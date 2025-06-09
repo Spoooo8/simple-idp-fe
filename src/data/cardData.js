@@ -2,20 +2,24 @@
  import cardB from '../images/cardB.png';
 import cardC from '../images/cardC.png';
 const cardData = [
-  {
-    heading: "Comprehensive Role-Based Authorization Features",
-    desc: "Implement granular access controls tailored to user roles.",
-    image:cardA
+    {
+    heading: "Robust JWT Authentication & Verification",
+    desc: "Secure your applications with token-based authentication and prevent unauthorized access",
+    image:cardB,
+    link: "/jwt/form"
   },
-  {
-    heading: "Advanced CORS and CSRF Protection Mechanisms",
-    desc: "Safeguard your applications against cross-origin threats.",
-    image:cardB
-  },
+ {
+  heading: "Secure OAuth2 Social Login Integration",
+  desc: "Enable users to authenticate seamlessly using popular social platforms like Google, Facebook, and GitHub.",
+  image: cardA,
+   link: "/social/form"
+},
+
   {
     heading: "Seamless Integration with OAuth2 and OpenID Connect",
     desc: "Utilize industry-standard protocols for secure authentication.",
-    image:cardC
+    image:cardC,
+     link: "/oauth/form"
   },
 ];
 

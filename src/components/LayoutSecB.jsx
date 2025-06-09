@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import LearnButton from './LearnButton';
 
-function LayoutSecB({heading,subHeading,desc,image }){
+function LayoutSecB({heading,subHeading,desc,image,link }){
   return (
     <>
         
           <section className="bg-white py-16 border-t border-gray-300 w-full">
             <div className="w-full px-4 flex flex-col md:flex-row items-center">
-              <div className="w-full md:w-1/2 mb-8 md:mb-0 flex flex-col items-start">
+              <div className="w-full md:w-1/2 mb-8 md:mb-0 flex flex-col items-start ml-15">
                 <div className="mb-4 flex items-center space-x-2">
                   <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -21,10 +21,10 @@ function LayoutSecB({heading,subHeading,desc,image }){
                 <p className="text-gray-600 mb-6">
                     {desc}
                 </p>
-                <LearnButton/>
+                <LearnButton to={link}/>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="aspect-square w-full bg-gray-200 rounded-lg overflow-hidden shadow-md">
+                <div className="aspect-square h-130 w-130 bg-gray-200 rounded-lg overflow-hidden shadow-md ml-3">
                   <img src={image} alt="Google Login Preview" className="w-full h-full object-cover"/>
                 </div>
               </div>

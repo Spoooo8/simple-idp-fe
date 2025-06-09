@@ -1,36 +1,39 @@
- import secA from '../images/secA.png';
- import secB from '../images/secB.png';
+import secA from '../images/secA.png';
+import secB from '../images/secB.png';
 import secC from '../images/secC.png';
  const layoutSecData = [
   {
     heading: "Secure Identity",
-    subheading: "Protecting Your Data",
-    desc: "Your information is safe with enterprise-grade security.",
+    subHeading: "Streamline your Authentication with OAuth2",
+    desc: "Implementing OAuth2 grant flows ensures seamless and secure user authentication. Our solution supports various flows including Authorization Code, Client Credentials, and Refresh Token",
     titlea:"Flexible Options",
     titleb:"Robust Security",
-    desca: "All credentials are encrypted and stored securely.",
-    descb: "OAuth 2.0 and JWT ensure safe and seamless authentication.",
-    image:secA
+    desca: "Choose the right flow for your application's authentication needs",
+    descb: "Protect your APIs with role based authorization ad advanced security measures.",
+    image:secA,
+    link: "/oauth/learn",
   },
   {
     heading: "Seamless Experience",
-    subheading: "Smooth and Intuitive Interface",
-    desc: "Get things done faster with a clean and modern UI.",
+    subHeading: "Seamless Goolge Login with OpenID Connect",
+    desc: "Experience effortless authentiction with our OpenID Connect integration, enabling secure JWT authentication through social login. Simplify user access whie maintaining robust security protocols",
     titlea:"",
     titleb:"",
     desca: "",
     descb: "",
-    image:secB
+    image:secB,
+    link: "/social/learn"
   },
   {
-    heading: "Collaboration Made Easy",
-    subheading: "Find and Join Projects",
-    desc: "Work with peers on real-world ideas and innovations.",
-    titlea:"Robust Security",
-    titleb:"Robust Security",
-    desca: "Post your projects or join ongoing ones instantly.",
-    descb: "Use filters to find people based on skills and interests.",
-    image:secC
+    heading: "Advanced Security",
+    subHeading: "Protect Your Data with Advanced Security Features",
+    desc: "Our Secured APis utitlize role-based authorization to ensure that only authorized users can access sensitive data",
+    titlea:"Role-Based",
+    titleb:"Custom Filter",
+    desca: "Tailored access controls for every user role enhance security and stramline operations.",
+    descb: "Our custom authentication filter adds an extra layer of security to your applications",
+    image:secC,
+    link: "/jwt/learn"
   },
 ];
 export default layoutSecData;

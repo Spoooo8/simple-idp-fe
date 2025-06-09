@@ -13,18 +13,59 @@ return (
                 <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition duration-300">Subscribe</button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-600 mb-8">
-                <div>
-                  <h4 className="font-semibold text-gray-800">LinkedIn</h4>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-600">GitHub</h4>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800">Mail</h4>
-                </div>
+              <div>
+  <h4 className="font-semibold text-black">
+    <a
+      href="https://www.linkedin.com/in/spoorthi-s-971a4b201/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:underline"
+      style={{ color: 'black', textDecoration: 'none' }}
+    >
+      LinkedIn
+    </a>
+  </h4>
+</div>
+<div>
+  <h4 className="font-semibold text-black">
+    <a
+      href="https://github.com/Spoooo8  "
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:underline"
+      style={{ color: 'black', textDecoration: 'none' }}
+    >
+      GitHub
+    </a>
+  </h4>
+</div>
+<div>
+  <h4 className="font-semibold text-black">
+    <a
+      href="mailto:sspoorthi328@gmail.com"
+      className="hover:underline"
+      style={{ color: 'black', textDecoration: 'none' }}
+    >
+      Mail
+    </a>
+  </h4>
+</div>
+
               </div>
               <div className="text-sm text-gray-500">
-                <p>© 2025 Spoorthi S. All rights reserved.</p>
+              <p>
+  © 2025{' '}
+  <a
+    href="https://spoooo8.github.io/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline hover:text-gray-400"
+  >
+    Spoorthi S
+  </a>
+  . All rights reserved.
+</p>
+
               </div>
             </div>
           </section>
