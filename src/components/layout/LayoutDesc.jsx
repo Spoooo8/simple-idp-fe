@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import LearnButton from './LearnButton';
+import LearnButton from '../general/LearnButton';
 
-function LayoutSecA({heading,subHeading,desc, desca, descb, image,titlea, titleb ,link,}){
+function LayoutDesc({heading,subHeading,desc, desca, descb, image,titlea, titleb ,link,}){
   return (
     <>
         <section className="bg-white text-gray-800 py-20 px-4 w-full">
@@ -34,7 +34,6 @@ function LayoutSecA({heading,subHeading,desc, desca, descb, image,titlea, titleb
                     <p className="text-sm text-gray-600">{descb}</p>
                   </div>
                 </div>
-            <LearnButton to={link} />
               </div>
             </div>
           </section>
@@ -42,4 +41,4 @@ function LayoutSecA({heading,subHeading,desc, desca, descb, image,titlea, titleb
 );
 };
 
-export default LayoutSecA  ;
+export default LayoutDesc  ;

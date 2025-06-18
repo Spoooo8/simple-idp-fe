@@ -1,8 +1,8 @@
 import React from 'react';
-import InputForm from '../../components/InputForm';
-import FormDescription from '../../components/FormDescription';
+import InputForm from '../../components/oauth_flows/InputForm';
+import FormDescription from '../../components/oauth_flows/FormDescription';
 
-const JwtInput = () => {
+const CodeInput = () => {
   const fields = [
     {
       name: 'algorithm',
@@ -55,12 +55,12 @@ const JwtInput = () => {
         values={values}
         setters={setters}
         onSubmit={handleSubmit}
-        title="JWT Token"
+        title="Authorization Code"
       />
       <FormDescription />
     </>
   );
 };
 
-export default JwtInput;
+export default CodeInput;
   

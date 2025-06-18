@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './SideBar';
-import NavigationBlack from './NavigationBlack';
+import NavigationBlack from '../general/NavigationBlack';
 
-const ParentMain = ({menuItems,}) => {
+const OAuth = ({menuItems,}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,6 +26,7 @@ const ParentMain = ({menuItems,}) => {
 
   return (
     <>
+    <NavigationBlack/>
     {/* <NavigationBlack/> */}
     <div className="min-h-screen w-screen flex bg-black">
       <Sidebar
@@ -41,4 +42,4 @@ const ParentMain = ({menuItems,}) => {
   );
 };
 
-export default ParentMain;
+export default OAuth;

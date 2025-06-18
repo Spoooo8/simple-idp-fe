@@ -1,4 +1,4 @@
-const jwtData = [
+const clientLearn = [
   {
     type: 'paragraph',
     text: `The useState hook is one of the most commonly used features in React. It lets you add state to functional components. Let’s see how it works.`,
@@ -42,4 +42,4 @@ function Counter() {
   },
 ];
 
-export default jwtData;
+export default clientLearn;

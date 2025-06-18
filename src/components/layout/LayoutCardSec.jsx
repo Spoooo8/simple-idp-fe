@@ -1,8 +1,7 @@
 import LayoutCard from "./LayoutCard";
-import LearnButton from "./LearnButton";
 
 
-function LayoutSecCard({heading,subHeading,desc }){
+function LayoutCardSec({heading,subHeading,desc }){
   return (
     <>
           <section className="bg-white py-16 border-t border-gray-200 w-full">
@@ -22,4 +21,4 @@ function LayoutSecCard({heading,subHeading,desc }){
 );
 };
 
-export default LayoutSecCard  ;
+export default LayoutCardSec  ;

@@ -3,81 +3,68 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import JwtInput from './routes/jwt/JwtInput'
-import  jwtData from './data/jwtData.js'
-import Learn from './components/Learn';
-import JwtMain from './routes/jwt/JwtMain.jsx'
-import OAuthMain from './routes/oauth/OAuthMain.jsx';
-import OAuthInput from './routes/oauth/OAuthInput.jsx';
-import SocialMain from './routes/social/SocialMain.jsx';
-import SocialInput from './routes/social/SocialInput.jsx';
-import RootLayout from './components/RootLayout.jsx';
+import RootLayout from './components/general/RootLayout.jsx';
+import OAuth from './components/oauth_flows/Oauth.jsx';
+import PkceInput from './routes/pkce/pkceInput.jsx';
+import Learn from './components/oauth_flows/Learn.jsx';
+import pkceLearn from './data/oauth_flows/pkceLearn.js';
+import pkceMenuItems from './data/oauth_flows/pkcemenuItems.js';
+import clientLearn from './data/oauth_flows/clientLearn.js';
+import clientMenuItems from './data/oauth_flows/clientMenuItems.js';
+import codeLearn from './data/oauth_flows/codeLearn.js';
+import codeMenuItems from './data/oauth_flows/codeMenuItems.js';
 import AddUser from './routes/AddUser.jsx'
-
+import CodeInput from './routes/code/CodeInput.jsx';
+import ClientInput from './routes/client/ClientInput.jsx';
+import Login from './routes/Login.jsx';
+import Register from './routes/Register.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />, 
+    element: <RootLayout />,
     children: [
-      { path: "", element: <App /> },
-      {
-        path: "jwt",
-        element: <JwtMain />,
-        children: [
-          { path: "form", element: <JwtInput /> },
-          {
-            path: "learn",
-            element: (
-              <Learn
-                title="Setting Up JWT Authentication"
-                content={jwtData}
-              />
-            ),
-          },
-        ],
-      },
-      {
-        path: "social",
-        element: <SocialMain />,
-        children: [
-          { path: "form", element: <SocialInput /> },
-          {
-            path: "learn",
-            element: (
-              <Learn
-                title="Setting Up OAuth2 using Social login"
-                content={jwtData}
-              />
-            ),
-          },
-        ],
+      { path: "", element: <App /> ,
+        children:[
+          {path:"login", element: <Login/>},
+          {path:"register", element:<Register/>}
+        ]
       },
       {
         path: "oauth",
-        element: <OAuthMain />,
         children: [
-          { path: "form", element: <OAuthInput /> },
           {
-            path: "learn",
-            element: (
-              <Learn title="Setting Up OAuth2" content={jwtData} />
-            ),
+            path: "pkce", element: <OAuth menuItems={pkceMenuItems} />,
+            children: [
+              { path: "", element: <PkceInput /> },
+              { path: "learn", element: ( <Learn title="Setting Up PKCE" content={pkceLearn}/>),},
+              { path: "addUser", element: <AddUser /> }
+            ]
+          },
+          {
+            path: "code", element: <OAuth menuItems={clientMenuItems} />,
+            children: [
+              { path: "", element: <CodeInput /> },
+              { path: "learn", element: ( <Learn title="Setting Up Client Credentials" content={clientLearn}/>),},
+              { path: "addUser", element: <AddUser /> }
+            ]
+          },
+          {
+            path: "client", element: <OAuth menuItems={codeMenuItems} />,
+            children: [
+              { path: "", element: <ClientInput /> },
+              { path: "learn", element: ( <Learn title="Setting Up Authorization Code" content={codeLearn}/>),},
+              { path: "addUser", element: <AddUser /> }
+            ]
           },
         ],
       },
-      // {
-      //   path:"addUser",
-      //   element:<AddUser/>
-      // }
     ],
   },
 ]);
-
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
   </StrictMode>,
-)
-
+);

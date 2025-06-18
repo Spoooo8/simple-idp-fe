@@ -1,4 +1,4 @@
-import cardData from "../data/cardData"; 
+import cardData from "../../data/layout/cardData"; 
 import { Link } from "react-router-dom";
 
 function LayoutCard() {

@@ -1,12 +1,12 @@
 import { useRef } from 'react';
-import Navigation from '../components/Navigation';
-import HeroSection from '../components/HeroSection';
-import LayoutSecA from '../components/LayoutSecA';
-import LayoutSecB from '../components/LayoutSecB';
-import LayoutSecCard from '../components/LayoutSecCard';
-import layoutSecData from '../data/layoutSecData';
-import LayoutSecC from '../components/LayoutSecC';
-import Footer from '../components/Footer';
+import Navigation from '../components/general/Navigation';
+import HeroSection from '../components/layout/HeroSection';
+import LayoutDesc from '../components/layout/LayoutDesc';
+import LayoutDescB from '../components/layout/LayoutDescB';
+import LayoutCardSec from '../components/layout/LayoutCardSec';
+import layoutSecData from '../data/layout/layoutSecData';
+import LayoutSetUp from '../components/layout/LayoutSetUp';
+import Footer from '../components/general/Footer';
 
 function Layout() {
   const heroRef = useRef(null);
@@ -26,13 +26,15 @@ function Layout() {
       <div ref={heroRef}>
         <HeroSection />
       </div>
-      <div ref={sectionARef}>
-        <LayoutSecA {...getSection("Secure Identity")} />
+      <div>
+        <LayoutDesc {...getSection("Secure Identity")} />
       </div>
-      <LayoutSecB {...getSection("Seamless Experience")} />
-      <LayoutSecA {...getSection("Advanced Security")} />
-      <LayoutSecCard />
-      <LayoutSecC />
+      <LayoutDescB {...getSection("Seamless Experience")} />
+      <div ref={sectionARef}>
+        <LayoutCardSec />
+      </div>
+
+      <LayoutSetUp />
       <div ref={footerRef}>
         <Footer />
       </div>

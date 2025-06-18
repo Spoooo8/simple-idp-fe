@@ -1,4 +1,4 @@
-import logo from '../images/logo_white.png';
+import logo from '../../../public/images/new_logo_white.png';
 
 function NavigationBlack() {
   return (

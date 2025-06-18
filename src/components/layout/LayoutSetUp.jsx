@@ -1,16 +1,15 @@
-import threeSecData from "../data/threeSecData";
-
-function LayoutSecC({ heading, subHeading, desc }) {
+import threeSecData from "../../data/layout/threeSecData";
+function LayoutSetUp({ heading, subHeading, desc }) {
   return (
     <section className="bg-white py-16 border-t border-gray-300 w-full">
       <div className="w-full px-4">
         <div className="mb-10">
-          <p className="text-sm text-gray-500 font-semibold mb-2">Secure</p>
+          <p className="text-sm text-gray-500 font-semibold mb-2">Quick Start</p>
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Comprehensive Identity and API <br /> Security Solutions
+            Set Up OAuth2 Authentication in Just a Few Steps
           </h2>
           <p className="text-gray-600">
-            We specialize in implementing OAuth2 grant flows and OpenID Connect for seamless authentication. Our solutions ensure robust API security with role-based authorization and advanced protection mechanisms.
+            From choosing the right grant type to generating tokens, our guide helps you secure your application with OAuth2, role-based access control, and robust API protection.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
@@ -33,4 +32,4 @@ function LayoutSecC({ heading, subHeading, desc }) {
   );
 }
 
-export default LayoutSecC;
+export default LayoutSetUp;

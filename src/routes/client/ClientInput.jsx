@@ -1,8 +1,8 @@
 import React from 'react';
-import InputForm from '../../components/InputForm';
-import FormDescription from '../../components/FormDescription';
+import InputForm from '../../components/oauth_flows/InputForm';
+import FormDescription from '../../components/oauth_flows/FormDescription';
 
-const OAuthInput = () => {
+const ClientInput = () => {
   const fields = [
     {
       name: 'algorithm',
@@ -55,12 +55,12 @@ const OAuthInput = () => {
         values={values}
         setters={setters}
         onSubmit={handleSubmit}
-        title="OAuth 2"
+        title="Client Credentials"
       />
       <FormDescription />
     </>
   );
 };
 
-export default OAuthInput;
+export default ClientInput;
   

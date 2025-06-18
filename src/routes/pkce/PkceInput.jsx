@@ -1,8 +1,8 @@
 import React from 'react';
-import InputForm from '../../components/InputForm';
-import FormDescription from '../../components/FormDescription';
+import InputForm from '../../components/oauth_flows/InputForm';
+import FormDescription from '../../components/oauth_flows/FormDescription';
 
-const SocialInput = () => {
+const PkceInput = () => {
   const fields = [
     {
       name: 'algorithm',
@@ -55,11 +55,12 @@ const SocialInput = () => {
         values={values}
         setters={setters}
         onSubmit={handleSubmit}
-        title="Social Login"
+        title="PKCE"
       />
       <FormDescription />
     </>
   );
 };
 
-export default SocialInput;
+export default PkceInput;
+  

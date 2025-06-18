@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import LearnButton from './LearnButton';
+import LearnButton from '../general/LearnButton';
 
-function LayoutSecB({heading,subHeading,desc,image,link }){
+function LayoutDescB({heading,subHeading,desc,image,link }){
   return (
     <>
         
@@ -21,7 +21,6 @@ function LayoutSecB({heading,subHeading,desc,image,link }){
                 <p className="text-gray-600 mb-6">
                     {desc}
                 </p>
-                <LearnButton to={link}/>
               </div>
               <div className="w-full md:w-1/2">
                 <div className="aspect-square h-130 w-130 bg-gray-200 rounded-lg overflow-hidden shadow-md ml-3">
@@ -34,4 +33,4 @@ function LayoutSecB({heading,subHeading,desc,image,link }){
 );
 };
 
-export default LayoutSecB  ;
+export default LayoutDescB  ;
