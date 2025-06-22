@@ -4,7 +4,7 @@ import LearnButton from '../general/LearnButton';
 function LayoutDesc({heading,subHeading,desc, desca, descb, image,titlea, titleb ,link,}){
   return (
     <>
-        <section className="bg-white text-gray-800 py-20 px-4 w-full">
+        <section className="bg-white text-gray-800 pt-2 pb-20 w-full">
             <div className="w-half grid md:grid-cols-2 gap-8 items-center">
               <div className="aspect-square w-130 h-130 bg-gray-200 rounded-lg overflow-hidden shadow-md ml-25">
                 <img src={image} alt="Google Login Preview" className="w-full h-full object-cover"/>

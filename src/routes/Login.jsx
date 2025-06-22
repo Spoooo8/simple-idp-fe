@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InputForm from '../components/oauth_flows/InputForm';
+  import lock from '../../public/images/lock.png'
 
 function Login({ onClose }) {
   const fields = [

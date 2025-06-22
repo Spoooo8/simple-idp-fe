@@ -1,10 +1,6 @@
 const clientMenuItems = [
-  { name: 'Create Client', path: '' },
-  { name: 'Create User', path: 'learn' },
-  { name: 'Assign Role', path: 'role' },
-  { name: 'Create Role', path: 'create/role' },
-  { name: 'Learn', path: 'learn' },
-
+  { name: 'Create Client', path: 'createclient' },
+  { name: 'Learn', path: 'client/learn' },
 ];
 
 export default clientMenuItems;

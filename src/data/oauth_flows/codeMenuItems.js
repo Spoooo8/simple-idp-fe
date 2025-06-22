@@ -1,8 +1,8 @@
  const codeMenuItems = [
-    { name: 'Create Client', path: '' },
-    { name: 'Assign Role', path: 'role' },
-    { name: 'Create Role', path: 'create/role' },
-      { name: 'Learn', path: 'learn' },
+    { name: 'Create Client', path: 'createclient' },
+    { name: 'User', path: 'code/user' },
+    { name: 'Role', path: 'code/role' },
+    { name: 'Learn', path: 'code/learn' },
 
   ];
 

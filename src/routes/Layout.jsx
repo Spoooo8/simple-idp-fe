@@ -7,6 +7,7 @@ import LayoutCardSec from '../components/layout/LayoutCardSec';
 import layoutSecData from '../data/layout/layoutSecData';
 import LayoutSetUp from '../components/layout/LayoutSetUp';
 import Footer from '../components/general/Footer';
+import Clients from '../components/layout/Clients';
 
 function Layout() {
   const heroRef = useRef(null);
@@ -15,6 +16,9 @@ function Layout() {
 
   const getSection = (heading) =>
     layoutSecData.find((item) => item.heading === heading);
+
+  // Replace this logic with your actual login check
+  const isLoggedIn = !!localStorage.getItem("token");
 
   return (
     <div className="w-full min-h-screen bg-gray-100 text-white">
@@ -25,11 +29,19 @@ function Layout() {
       />
       <div ref={heroRef}>
         <HeroSection />
+          {!isLoggedIn && (
+      <Clients />
+      )}
+        
       </div>
-      <div>
-        <LayoutDesc {...getSection("Secure Identity")} />
-      </div>
-      <LayoutDescB {...getSection("Seamless Experience")} />
+
+      {isLoggedIn && (
+        <>
+          <LayoutDesc {...getSection("Secure Identity")} />
+          <LayoutDescB {...getSection("Seamless Experience")} />
+        </>
+      )}
+
       <div ref={sectionARef}>
         <LayoutCardSec />
       </div>

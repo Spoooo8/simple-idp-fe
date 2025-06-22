@@ -7,19 +7,19 @@ const cardData = [
     heading: "Authorization Code Flow with PKCE",
     desc: "Securely authenticate users in public clients (like mobile or SPA) using PKCE to prevent token interception.",
     image: cardA,
-    link: "/oauth/pkce"
+    link: "/oauth/pkce/createclient"
   },
   {
     heading: "Client Credentials Flow",
     desc: "Ideal for service-to-service authentication without user interaction. Authenticate backend services securely.",
     image: cardB,
-    link: "/oauth/client"
+    link: "/oauth/client/createclient"
   },
   {
     heading: "Standard Authorization Code Flow",
     desc: "Authenticate users in confidential clients like web servers using a secure redirection-based login.",
     image: cardC,
-    link: "/oauth/code"
+    link: "/oauth/code/createclient"
   },
 ];
 
