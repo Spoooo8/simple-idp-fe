@@ -9,15 +9,19 @@ import OAuth from './components/oauth_flows/Oauth.jsx';
 import Learn from './components/oauth_flows/Learn.jsx';
 import pkceLearn from './data/oauth_flows/pkceLearn.js';
 import clientLearn from './data/oauth_flows/clientLearn.js';
-import codeLearn from './data/oauth_flows/codeLearn.js';
-import AddUser from './routes/AddUser.jsx';
 import Login from './routes/Login.jsx';
 import Register from './routes/Register.jsx';
 import CreateClient from './routes/CreateClient.jsx';
 import menuItems from './data/oauth_flows/menuItems.js';
-
-import { OAuthFlowProvider } from './components/oauth_flows/OAuthFlowContext.jsx'; // ✅ NEW
+import ClientView from './routes/ClientView.jsx';
+import { OAuthFlowProvider } from './components/oauth_flows/OAuthFlowContext.jsx';
 import User from './routes/User.jsx';
+import AddUser from './routes/AddUser.jsx'
+import Callback from './utils/CallBack.jsx';
+import axios from 'axios';
+import Role from './routes/Role.jsx';
+import AddRole from './routes/AddRole.jsx';
+axios.defaults.withCredentials = true; // ✅ Import your callback
 
 const router = createBrowserRouter([
   {
@@ -25,50 +29,45 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: '',
-        element: <App />,
+        path: '/',
+        element: <App />, // ✅ Home page
         children: [
           { path: 'login', element: <Login /> },
           { path: 'register', element: <Register /> },
         ],
+
       },
+      { path: 'callback', element: <Callback /> },
       {
-        path: 'oauth',
-        children: [
-          {
-            path: '',
-            element: <OAuth menuItems={menuItems} />,
-            children: [
-              { path: 'createclient', element: <CreateClient /> },
-              {
-                path: 'pkce',
-                children: [
-                  { path: 'createclient', element: <CreateClient flow="pkce" /> },
-                  { path: 'learn', element: (<Learn title="Setting Up PKCE" content={pkceLearn} />), },
-                  { path: "user", element: <User /> },
-                  { path: 'addUser', element: <AddUser /> },
-                ],
-              },
-              {
-                path: 'code',
-                children: [
-                  { path: 'createclient', element: <CreateClient flow="code" /> },
-                  { path: 'learn', element: (<Learn title="Setting Up Authorization Code" content={codeLearn} />), },
-                  { path: "user", element: <User /> },
-                  { path: 'addUser', element: <AddUser /> },
-                ],
-              },
-              {
-                path: 'client',
-                children: [
-                  { path: 'createclient', element: <CreateClient flow="client" /> },
-                  { path: 'learn', element: (<Learn title="Setting Up Client Credentials" content={clientLearn} />), },
-                ],
-              },
-            ],
-          },
-        ],
-      },
+        element: <OAuth />, children: [
+          { path: 'oauth/createclient', element: <CreateClient /> },
+          { path: 'oauth/pkce/createclient', element: <CreateClient flow="pkce" /> },
+          { path: 'oauth/code/createclient', element: <CreateClient flow="code" /> },
+          { path: 'oauth/client/createclient', element: <CreateClient flow="client" /> },]
+      }
+      ,
+      {
+  path: '/oauth/client/:clientId/dashboard',
+  element: <OAuth />,
+  children: [
+    { path: '', element: <ClientView /> },
+    { 
+      path: 'user', 
+      element: <User />,
+      children: [
+        { path: 'addUser', element: <AddUser /> } // ✅ remove the starting slash
+      ]
+    },
+    { path: 'role', element: <Role /> ,
+      children: [
+        { path: 'addRole', element: <AddRole /> } // ✅ remove the starting slash
+      ]
+    },
+    { path: 'learn', element: (<Learn title="Setting Up Client Credentials" content={clientLearn} />) }
+  ]
+}
+
+
     ],
   },
 ]);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation, useParams } from 'react-router-dom';
 import Sidebar from './SideBar';
 import NavigationBlack from '../general/NavigationBlack';
 
@@ -13,6 +13,7 @@ const OAuth = () => {
   const { flow } = useOAuthFlow();
   const navigate = useNavigate();
   const location = useLocation();
+  const { clientId } = useParams();
 
   const [activeItem, setActiveItem] = useState('Dashboard');
 
@@ -36,7 +37,7 @@ const OAuth = () => {
 
   const handleSelect = (item) => {
     setActiveItem(item.name);
-    navigate(`/oauth/${item.path}`);
+    navigate(`/oauth/client/${clientId}/dashboard/${item.path}`);
   };
 
   return (
@@ -44,12 +45,15 @@ const OAuth = () => {
       <NavigationBlack />
       <div className="min-h-screen w-screen flex bg-black">
         <Sidebar
-          menuItems={currentMenuItems}
+          menuItems={currentMenuItems.map(item => ({
+            ...item,
+            path: `/oauth/client/${clientId}/dashboard/${item.path}`
+          }))}
           activeItem={activeItem}
           onSelect={handleSelect}
         />
         <main className="flex-grow bg-white p-8 flex gap-8 text-gray-800">
-          <Outlet />
+          <Outlet context={{ clientId }} />
         </main>
       </div>
     </>

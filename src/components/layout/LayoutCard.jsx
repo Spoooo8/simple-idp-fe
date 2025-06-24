@@ -3,13 +3,13 @@ import cardData from "../../data/layout/cardData";
 
 function LayoutCard() {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = !!sessionStorage.getItem("access_token"); // ✅ Correct sessionStorage and key
 
   const handleCardClick = (link) => {
-    if (!isLoggedIn) {
-      navigate(link);
+    if (isLoggedIn) {
+      navigate(link); // ✅ Normal behavior when logged in
     } else {
-      navigate("/login");
+      navigate("/login"); // ✅ Redirect to login when not logged in
     }
   };
 

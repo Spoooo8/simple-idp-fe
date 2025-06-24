@@ -1,9 +1,8 @@
- const codeMenuItems = [
-    { name: 'Create Client', path: 'createclient' },
-    { name: 'User', path: 'code/user' },
-    { name: 'Role', path: 'code/role' },
-    { name: 'Learn', path: 'code/learn' },
+const codeMenuItems = [
+  { name: 'Client', path: '' },
+  { name: 'User', path: 'user' },
+  { name: 'Role', path: 'role' },
+  // { name: 'Learn', path: 'learn' }
+];
 
-  ];
-
-  export default codeMenuItems;
+export default codeMenuItems;

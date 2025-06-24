@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Navigation from '../components/general/Navigation';
 import HeroSection from '../components/layout/HeroSection';
 import LayoutDesc from '../components/layout/LayoutDesc';
@@ -17,8 +17,13 @@ function Layout() {
   const getSection = (heading) =>
     layoutSecData.find((item) => item.heading === heading);
 
-  // Replace this logic with your actual login check
-  const isLoggedIn = !!localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('access_token');
+    console.log('Retrieved Token:', token);
+    setIsLoggedIn(!!token);
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-gray-100 text-white">
@@ -26,16 +31,17 @@ function Layout() {
         scrollToHero={() => heroRef.current?.scrollIntoView({ behavior: 'smooth' })}
         scrollToSectionA={() => sectionARef.current?.scrollIntoView({ behavior: 'smooth' })}
         scrollToFooter={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })}
+        isLoggedIn={isLoggedIn}
       />
+
       <div ref={heroRef}>
         <HeroSection />
-          {!isLoggedIn && (
-      <Clients />
-      )}
-        
+        {isLoggedIn && (
+          <Clients />
+        )}
       </div>
 
-      {isLoggedIn && (
+      {!isLoggedIn && (
         <>
           <LayoutDesc {...getSection("Secure Identity")} />
           <LayoutDescB {...getSection("Seamless Experience")} />

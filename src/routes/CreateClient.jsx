@@ -1,21 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import InputForm from '../components/oauth_flows/InputForm';
 import FormDescription from '../components/oauth_flows/FormDescription';
 import { useOAuthFlow } from '../components/oauth_flows/OAuthFlowContext';
+import axios from 'axios';
 
 const CreateClient = ({ flow: initialFlow }) => {
   const { flow, setFlow } = useOAuthFlow();
+  const navigate = useNavigate();
 
-  const [clientId, setClientId] = React.useState('');
-  const [clientName, setClientName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const [clientId, setClientId] = useState('');
+  const [clientName, setClientName] = useState('');
+  const [grantTypeOptions, setGrantTypeOptions] = useState([]);
+  const [selectedGrantTypeIds, setSelectedGrantTypeIds] = useState([]);
 
-  // 👇 On mount, set initial flow from props
+  // Fetch grant types for dropdown
+  const fetchGrantTypes = async () => {
+    try {
+      const token = sessionStorage.getItem('access_token');
+
+      const response = await axios.get('http://localhost:8080/grant-types/dropdown', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setGrantTypeOptions(response.data);
+    } catch (error) {
+      console.error('Error fetching grant types:', error.response ? error.response.data : error.message);
+    }
+  };
+
   useEffect(() => {
+    fetchGrantTypes();
+
     if (initialFlow) {
       setFlow(initialFlow);
     }
   }, [initialFlow, setFlow]);
+
+  const handleGrantTypeChange = (selectedLabel) => {
+    setFlow(selectedLabel);
+
+    const selectedOption = grantTypeOptions.find(opt => opt.label === selectedLabel);
+    if (selectedOption) {
+      setSelectedGrantTypeIds(selectedOption.value);
+    }
+  };
 
   const fields = [
     {
@@ -24,9 +53,7 @@ const CreateClient = ({ flow: initialFlow }) => {
       type: 'select',
       options: [
         { value: '', label: 'Select an OAuth Flow' },
-        { value: 'client', label: 'Client Credentials' },
-        { value: 'code', label: 'Authorization Code' },
-        { value: 'pkce', label: 'Authorization Code with PKCE' },
+        ...grantTypeOptions.map(opt => ({ value: opt.label, label: opt.label }))
       ],
     },
     {
@@ -41,22 +68,50 @@ const CreateClient = ({ flow: initialFlow }) => {
       type: 'text',
       placeholder: 'Enter your JWT',
     },
-    {
-      name: 'description',
-      label: 'Descrition',
-      type: 'textarea',
-      placeholder: 'Enter your payload',
-      rows: 4,
-    },
   ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ flow, clientId, clientName, description });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const token = sessionStorage.getItem('access_token');
+
+  if (!token) {
+    console.error('No token found');
+    return;
+  }
+
+  // Decode the JWT to extract userId
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const decodedPayload = JSON.parse(atob(base64));
+  const userId = decodedPayload.userId; // Make sure the token has this claim
+
+  const requestBody = {
+    clientId: clientId,
+    name: clientName,
+    userId: userId, // ✅ dynamic userId from token
+    grantTypesIds: selectedGrantTypeIds
   };
 
-  const values = { flow, clientId, clientName, description };
-  const setters = { setFlow, setClientId, setClientName, setDescription };
+  try {
+    await axios.post('http://localhost:8080/client', requestBody, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log('Client created successfully.');
+    navigate('/'); // ✅ Redirect after success
+  } catch (error) {
+    console.error('Error creating client:', error.response ? error.response.data : error.message);
+  }
+};
+
+
+  const values = { flow, clientId, clientName };
+  const setters = { 
+    setFlow: handleGrantTypeChange,
+    setClientId, 
+    setClientName 
+  };
 
   return (
     <>

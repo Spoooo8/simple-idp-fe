@@ -1,32 +1,74 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import InputForm from '../components/oauth_flows/InputForm';
+import { generateCodeVerifier, generateCodeChallenge } from '../utils/pkce';
+import lock from '../../public/images/lock_black.png';
 
 function Register({ onClose }) {
   const fields = [
-    { name: 'username', label: 'Username', type: 'text', placeholder: 'Enter username' },
+    { name: 'name', label: 'Name', type: 'text', placeholder: 'Enter name' },
     { name: 'email', label: 'Email', type: 'email', placeholder: 'Enter email' },
     { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter password' },
   ];
 
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const values = { username, email, password };
-  const setters = { setUsername, setEmail, setPassword };
+  const values = { name, email, password };
+  const setters = { setName, setEmail, setPassword };
 
-  const handleSubmit = (e) => {
+  const clientId = 'unilinkauth';
+  const authorizationEndpoint = 'http://localhost:9000/oauth2/authorize';
+  const redirectUri = 'http://localhost:5173/callback';
+  const scope = 'openid email';
+
+  const handlePKCELogin = async (e) => {
     e.preventDefault();
-    console.log({ username, email, password });
-    onClose(); // Close modal after submission
+
+    try {
+      // Step 1: Register user
+      await axios.post('http://localhost:8080/users', {
+        name: name,
+        email: email,
+        password: password,
+        clientId: 1
+      });
+
+      // Step 2: Login user
+      await axios.post('http://localhost:9000/api/login', {
+        email: email,
+        password: password,
+      }, { withCredentials: true });
+
+      // Step 3: PKCE setup
+      const codeVerifier = generateCodeVerifier();
+      localStorage.setItem('pkce_code_verifier', codeVerifier);
+
+      const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+      const params = new URLSearchParams({
+        response_type: 'code',
+        client_id: clientId,
+        redirect_uri: redirectUri,
+        scope: scope,
+        code_challenge: codeChallenge,
+        code_challenge_method: 'S256'
+      });
+
+      // Step 4: Redirect to authorization endpoint
+      window.location.href = `${authorizationEndpoint}?${params.toString()}`;
+    } catch (error) {
+      console.error('Registration or Login failed', error);
+      alert('Registration or login failed. Please try again.');
+    }
   };
 
   return (
-    <>
-    <div className="p-6 sm:p-10">
-      <InputForm fields={fields} values={values} setters={setters} onSubmit={handleSubmit} title="Register" />
+    <div className="p-6 sm:p-10 flex flex-col items-center">
+      <img src={lock} alt="Lock" className="w-20 h-20 mb-4" />
+      <InputForm fields={fields} values={values} setters={setters} onSubmit={handlePKCELogin} title="Register" />
     </div>
-    </>
   );
 }
 

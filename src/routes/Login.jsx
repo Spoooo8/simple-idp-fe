@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import InputForm from '../components/oauth_flows/InputForm';
-  import lock from '../../public/images/lock.png'
+import { generateCodeVerifier, generateCodeChallenge } from '../utils/pkce';
+import lock from '../../public/images/lock_black.png';
 
 function Login({ onClose }) {
   const fields = [
@@ -14,20 +16,47 @@ function Login({ onClose }) {
   const values = { email, password };
   const setters = { setEmail, setPassword };
 
-  const handleSubmit = (e) => {
+  const clientId = 'unilinkauth';
+  const authorizationEndpoint = 'http://localhost:9000/oauth2/authorize';
+  const redirectUri = 'http://localhost:5173/callback';
+  const scope = 'openid email';
+
+  const handlePKCELogin = async (e) => {
     e.preventDefault();
-    console.log({ email, password });
-    onClose(); // Close modal after submission
+
+    try {
+      await axios.post('http://localhost:9000/api/login', {
+        email: email,
+        password: password,
+      }, { withCredentials: true });
+
+      const codeVerifier = generateCodeVerifier();
+      localStorage.setItem('pkce_code_verifier', codeVerifier);
+
+      const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+      const params = new URLSearchParams({
+        response_type: 'code',
+        client_id: clientId,
+        redirect_uri: redirectUri,
+        scope: scope,
+        code_challenge: codeChallenge,
+        code_challenge_method: 'S256'
+      });
+
+      window.location.href = `${authorizationEndpoint}?${params.toString()}`;
+    } catch (error) {
+      console.error('Login failed', error);
+      alert('Invalid username or password.');
+    }
   };
 
   return (
-    <>
-      <div className="p-6 sm:p-10">
+    <div className="p-6 sm:p-10 flex flex-col items-center">
+      <img src={lock} alt="Lock" className="w-20 h-20 mb-4" />
 
-      <InputForm fields={fields} values={values} setters={setters} onSubmit={handleSubmit} title="Login" />  
-
+      <InputForm fields={fields} values={values} setters={setters} onSubmit={handlePKCELogin} title="Login" />
     </div>
-      </>
   );
 }
 
