@@ -2,17 +2,14 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
 import App from './App';
 import RootLayout from './components/general/RootLayout.jsx';
-import OAuth from './components/oauth_flows/Oauth.jsx';
+import OAuth from './components/oauth_flows/OAuth.jsx';
 import Learn from './components/oauth_flows/Learn.jsx';
-import pkceLearn from './data/oauth_flows/pkceLearn.js';
 import clientLearn from './data/oauth_flows/clientLearn.js';
 import Login from './routes/Login.jsx';
 import Register from './routes/Register.jsx';
 import CreateClient from './routes/CreateClient.jsx';
-import menuItems from './data/oauth_flows/menuItems.js';
 import ClientView from './routes/ClientView.jsx';
 import { OAuthFlowProvider } from './components/oauth_flows/OAuthFlowContext.jsx';
 import User from './routes/User.jsx';
