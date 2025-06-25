@@ -18,7 +18,7 @@ function Login({ onClose }) {
 
   const clientId = 'unilinkauth';
   const authorizationEndpoint = 'http://localhost:9000/oauth2/authorize';
-  const redirectUri = 'http://localhost:5173/callback';
+  const redirectUri = 'https://simpleidp.netlify.app/callback';
   const scope = 'openid email';
 
   const handlePKCELogin = async (e) => {
