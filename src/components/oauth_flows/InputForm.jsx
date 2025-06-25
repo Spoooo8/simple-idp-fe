@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 
 const InputForm = ({ fields, values, setters, onSubmit, title, isDisabled = false }) => {
   return (
@@ -28,6 +29,18 @@ const InputForm = ({ fields, values, setters, onSubmit, title, isDisabled = fals
                     </option>
                   ))}
                 </select>
+              ) : type === 'multi-select' ? (
+                <Select
+                  isMulti
+                  options={options}
+                  placeholder="Select Scopes"
+                  value={options.filter(opt => value.includes(opt.value))}
+                  onChange={selectedOptions => {
+                    const selectedIds = selectedOptions.map(opt => opt.value);
+                    setValue(selectedIds);
+                  }}
+                  isDisabled={isDisabled}
+                />
               ) : type === 'textarea' ? (
                 <textarea
                   value={value}

@@ -13,14 +13,16 @@ const ClientView = () => {
   const [clientId, setClientId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [clientName, setClientName] = useState('');
-  const [description, setDescription] = useState('');
+  const [redirectUrl, setRedirectUrl] = useState('');
+    const [scopes, setScopes] = useState('');
 
   useEffect(() => {
     if (client) {
       setClientId(client.clientId || '');
       setClientSecret(client.clientSecret || '');
       setClientName(client.name || '');
-      setDescription(client.redirectUrl || '');
+      setRedirectUrl(client.redirectUrl || '');
+      setScopes(client.scopes || '');
       setFlow(mapGrantType(client.grantTypes));
     }
   }, [client, setFlow]);
@@ -67,9 +69,17 @@ const ClientView = () => {
       disabled: true,
     },
     {
-      name: 'description',
-      label: 'Description',
-      type: 'textarea',
+      name: 'redirectUrl',
+      label: 'Redirect Url',
+      type: 'text',
+      placeholder: 'Enter your payload',
+      rows: 4,
+      disabled: true,
+    },
+    {
+      name: 'scopes',
+      label: 'Scopes',
+      type: 'text',
       placeholder: 'Enter your payload',
       rows: 4,
       disabled: true,
@@ -81,8 +91,8 @@ const ClientView = () => {
     console.log('View mode, submit is disabled');
   };
 
-  const values = { flow, clientId, clientSecret, clientName, description };
-  const setters = { setFlow, setClientId, setClientSecret, setClientName, setDescription };
+  const values = { flow, clientId, clientSecret, clientName, redirectUrl, scopes };
+  const setters = { setFlow, setClientId, setClientSecret, setClientName, setRedirectUrl, setScopes};
 
   return (
     <>

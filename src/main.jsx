@@ -18,7 +18,7 @@ import Callback from './utils/CallBack.jsx';
 import axios from 'axios';
 import Role from './routes/Role.jsx';
 import AddRole from './routes/AddRole.jsx';
-axios.defaults.withCredentials = true; // ✅ Import your callback
+axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
   {
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <App />, // ✅ Home page
+        element: <App />, 
         children: [
           { path: 'login', element: <Login /> },
           { path: 'register', element: <Register /> },
