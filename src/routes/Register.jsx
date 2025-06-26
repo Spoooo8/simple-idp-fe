@@ -28,39 +28,57 @@ function Register({ onClose }) {
 
     try {
       // Step 1: Register user
-      await axios.post('https://user-service-zvct.onrender.com/users', {
+      const registerResponse = await axios.post('https://user-service-zvct.onrender.com/users', {
         name: name,
         email: email,
         password: password,
         clientId: 1
       });
 
-      // Step 2: Login user
-      await axios.post('https://identity-auth-server.onrender.com/api/login', {
-        email: email,
-        password: password,
-      }, { withCredentials: true });
+      console.log('Registration successful:', registerResponse.data);
 
-      // Step 3: PKCE setup
-      const codeVerifier = generateCodeVerifier();
-      localStorage.setItem('pkce_code_verifier', codeVerifier);
+      // Optional delay to ensure backend session consistency
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-      const codeChallenge = await generateCodeChallenge(codeVerifier);
+      try {
+        // Step 2: Login user
+        const loginResponse = await axios.post(
+          'https://identity-auth-server.onrender.com/api/login',
+          {
+            email: email,
+            password: password,
+          },
+          { withCredentials: true }
+        );
 
-      const params = new URLSearchParams({
-        response_type: 'code',
-        client_id: clientId,
-        redirect_uri: redirectUri,
-        scope: scope,
-        code_challenge: codeChallenge,
-        code_challenge_method: 'S256'
-      });
+        console.log('Login successful:', loginResponse.data);
 
-      // Step 4: Redirect to authorization endpoint
-      window.location.href = `${authorizationEndpoint}?${params.toString()}`;
-    } catch (error) {
-      console.error('Registration or Login failed', error);
-      alert('Registration or login failed. Please try again.');
+        // Step 3: PKCE setup
+        const codeVerifier = generateCodeVerifier();
+        localStorage.setItem('pkce_code_verifier', codeVerifier);
+
+        const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+        const params = new URLSearchParams({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: redirectUri,
+          scope: scope,
+          code_challenge: codeChallenge,
+          code_challenge_method: 'S256'
+        });
+
+        // Step 4: Redirect to authorization endpoint
+        window.location.href = `${authorizationEndpoint}?${params.toString()}`;
+
+      } catch (loginError) {
+        console.error('Login failed:', loginError);
+        alert('Login failed. Please try logging in manually.');
+      }
+
+    } catch (registerError) {
+      console.error('Registration failed:', registerError);
+      alert('Registration failed. Please try again.');
     }
   };
 
