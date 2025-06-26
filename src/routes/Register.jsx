@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import InputForm from '../components/oauth_flows/InputForm';
+import { generateCodeVerifier, generateCodeChallenge } from '../utils/pkce';
 import lock from '../../public/images/lock_black.png';
 
 function Register({ onClose }) {
@@ -17,11 +18,16 @@ function Register({ onClose }) {
   const values = { name, email, password };
   const setters = { setName, setEmail, setPassword };
 
-  const handleRegister = async (e) => {
+  const clientId = 'unilinkauth';
+  const authorizationEndpoint = 'https://identity-auth-server.onrender.com/oauth2/authorize';
+  const redirectUri = 'https://simpleidp.netlify.app/callback';
+  const scope = 'openid email';
+
+  const handlePKCELogin = async (e) => {
     e.preventDefault();
 
     try {
-      // Register user
+      // Step 1: Register user
       await axios.post('https://user-service-zvct.onrender.com/users', {
         name: name,
         email: email,
@@ -29,26 +35,39 @@ function Register({ onClose }) {
         clientId: 1
       });
 
-      // Show success message
-      alert('Registration successful. Please login.');
+      // Step 2: Login user
+      await axios.post('https://identity-auth-server.onrender.com/api/login', {
+        email: email,
+        password: password,
+      }, { withCredentials: true });
 
-      // Close the registration window/modal
-      if (onClose) {
-        onClose();
-      }
+      // Step 3: PKCE setup
+      const codeVerifier = generateCodeVerifier();
+      localStorage.setItem('pkce_code_verifier', codeVerifier);
 
-      // Redirect to /login page
-      window.location.href = '/login';
+      const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+      const params = new URLSearchParams({
+        response_type: 'code',
+        client_id: clientId,
+        redirect_uri: redirectUri,
+        scope: scope,
+        code_challenge: codeChallenge,
+        code_challenge_method: 'S256'
+      });
+
+      // Step 4: Redirect to authorization endpoint
+      window.location.href = `${authorizationEndpoint}?${params.toString()}`;
     } catch (error) {
-      console.error('Registration failed', error);
-      alert('Registration failed. Please try again.');
+      console.error('Registration or Login failed', error);
+      alert('Registration or login failed. Please try again.');
     }
   };
 
   return (
     <div className="p-6 sm:p-10 flex flex-col items-center">
       <img src={lock} alt="Lock" className="w-20 h-20 mb-4" />
-      <InputForm fields={fields} values={values} setters={setters} onSubmit={handleRegister} title="Register" />
+      <InputForm fields={fields} values={values} setters={setters} onSubmit={handlePKCELogin} title="Register" />
     </div>
   );
 }
