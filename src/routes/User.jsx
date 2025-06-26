@@ -12,7 +12,7 @@ const User = () => {
     try {
       const token = sessionStorage.getItem('access_token');
 
-      const response = await axios.get(`http://localhost:8080/users/${clientId}/client`, {
+      const response = await axios.get(`https://user-service-zvct.onrender.com/users/${clientId}/client`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

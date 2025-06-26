@@ -24,7 +24,7 @@ const AddUser = () => {
   const fetchRoles = async () => {
     try {
       const token = sessionStorage.getItem('access_token');
-      const response = await axios.get(`http://localhost:8080/client-roles/${clientId}`, {
+      const response = await axios.get(`https://user-service-zvct.onrender.com/client-roles/${clientId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRoles(response.data);
@@ -57,7 +57,7 @@ const AddUser = () => {
 
     try {
       const token = sessionStorage.getItem('access_token');
-      await axios.post('http://localhost:8080/users', payload, {
+      await axios.post('https://user-service-zvct.onrender.com/users', payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

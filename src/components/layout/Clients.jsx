@@ -15,7 +15,7 @@ const Clients = () => {
         return;
       }
 
-      const response = await axios.get('http://localhost:8080/client', {
+      const response = await axios.get('https://user-service-zvct.onrender.com/client', {
         headers: { Authorization: `Bearer ${token}` },
       });
 

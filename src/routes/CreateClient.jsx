@@ -21,7 +21,7 @@ const CreateClient = ({ flow: initialFlow }) => {
   const fetchGrantTypes = async () => {
     try {
       const token = sessionStorage.getItem('access_token');
-      const response = await axios.get('http://localhost:8080/grant-types/dropdown', {
+      const response = await axios.get('https://user-service-zvct.onrender.com/grant-types/dropdown', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGrantTypeOptions(response.data);
@@ -34,7 +34,7 @@ const CreateClient = ({ flow: initialFlow }) => {
   const fetchScopes = async () => {
     try {
       const token = sessionStorage.getItem('access_token');
-      const response = await axios.get('http://localhost:8080/scopes', {
+      const response = await axios.get('https://user-service-zvct.onrender.com/scopes', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setScopeOptions(response.data);
@@ -89,7 +89,7 @@ const CreateClient = ({ flow: initialFlow }) => {
       name: 'redirectUrl',
       label: 'Redirect URL',
       type: 'text',
-      placeholder: 'http://localhost:3000/callback',
+      placeholder: 'https://simpleidp.netlify.app/callback',
     },
     {
       name: 'scopeIds',
@@ -126,7 +126,7 @@ const CreateClient = ({ flow: initialFlow }) => {
     };
 
     try {
-      await axios.post('http://localhost:8080/client', requestBody, {
+      await axios.post('https://user-service-zvct.onrender.com/client', requestBody, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
