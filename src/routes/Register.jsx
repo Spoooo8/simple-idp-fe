@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import InputForm from '../components/oauth_flows/InputForm';
-import { generateCodeVerifier, generateCodeChallenge } from '../utils/pkce';
+import { useNavigate } from 'react-router-dom';
 import lock from '../../public/images/lock_black.png';
 
 function Register({ onClose }) {
@@ -15,66 +15,26 @@ function Register({ onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const values = { name, email, password };
   const setters = { setName, setEmail, setPassword };
 
-  const clientId = 'unilinkauth';
-  const authorizationEndpoint = 'https://identity-auth-server.onrender.com/oauth2/authorize';
-  const redirectUri = 'https://simpleidp.netlify.app/callback';
-  const scope = 'openid email';
-
-  const handlePKCELogin = async (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
 
     try {
-      // Step 1: Register user
-      const registerResponse = await axios.post('https://user-service-zvct.onrender.com/users', {
-        name: name,
-        email: email,
-        password: password,
-        clientId: 1
+      await axios.post('https://user-service-zvct.onrender.com/users', {
+        name,
+        email,
+        password,
+        clientId: 1,
       });
 
-      console.log('Registration successful:', registerResponse.data);
+      console.log('Registration successful');
 
-      // Optional delay to ensure backend session consistency
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      try {
-        // Step 2: Login user
-        const loginResponse = await axios.post(
-          'https://identity-auth-server.onrender.com/api/login',
-          {
-            email: email,
-            password: password,
-          },
-          { withCredentials: true }
-        );
-
-        console.log('Login successful:', loginResponse.data);
-
-        // Step 3: PKCE setup
-        const codeVerifier = generateCodeVerifier();
-        localStorage.setItem('pkce_code_verifier', codeVerifier);
-
-        const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-        const params = new URLSearchParams({
-          response_type: 'code',
-          client_id: clientId,
-          redirect_uri: redirectUri,
-          scope: scope,
-          code_challenge: codeChallenge,
-          code_challenge_method: 'S256'
-        });
-
-        // Step 4: Redirect to authorization endpoint
-        window.location.href = `${authorizationEndpoint}?${params.toString()}`;
-
-      } catch (loginError) {
-        console.error('Login failed:', loginError);
-        alert('Login failed. Please try logging in manually.');
-      }
+      // After successful registration, navigate to Login page and pass email and password
+      navigate('/login', { state: { email, password } });
 
     } catch (registerError) {
       console.error('Registration failed:', registerError);
@@ -85,7 +45,7 @@ function Register({ onClose }) {
   return (
     <div className="p-6 sm:p-10 flex flex-col items-center">
       <img src={lock} alt="Lock" className="w-20 h-20 mb-4" />
-      <InputForm fields={fields} values={values} setters={setters} onSubmit={handlePKCELogin} title="Register" />
+      <InputForm fields={fields} values={values} setters={setters} onSubmit={handleRegistration} title="Register" />
     </div>
   );
 }
