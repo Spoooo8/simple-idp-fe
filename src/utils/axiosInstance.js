@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://user-service-zvct.onrender.com',
+    baseURL: 'https://user-service-production-08be.up.railway.app',
 });
 
 // Attach token to every request

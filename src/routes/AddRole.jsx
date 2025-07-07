@@ -5,7 +5,7 @@ import Modal from '../components/general/Modal';
 
 // Axios instance with token interceptor
 const axiosInstance = axios.create({
-  baseURL: 'https://user-service-zvct.onrender.com',
+  baseURL: 'https://user-service-production-08be.up.railway.app',
 });
 
 axiosInstance.interceptors.request.use(

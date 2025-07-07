@@ -21,7 +21,7 @@ const CreateClient = ({ flow: initialFlow }) => {
   const fetchGrantTypes = async () => {
     try {
       const token = sessionStorage.getItem('access_token');
-      const response = await axios.get('https://user-service-zvct.onrender.com/grant-types/dropdown', {
+      const response = await axios.get('https://user-service-production-08be.up.railway.app/grant-types/dropdown', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGrantTypeOptions(response.data);
@@ -34,7 +34,7 @@ const CreateClient = ({ flow: initialFlow }) => {
   const fetchScopes = async () => {
     try {
       const token = sessionStorage.getItem('access_token');
-      const response = await axios.get('https://user-service-zvct.onrender.com/scopes', {
+      const response = await axios.get('https://user-service-production-08be.up.railway.app/scopes', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setScopeOptions(response.data);
@@ -126,7 +126,7 @@ const CreateClient = ({ flow: initialFlow }) => {
     };
 
     try {
-      await axios.post('https://user-service-zvct.onrender.com/client', requestBody, {
+      await axios.post('https://user-service-production-08be.up.railway.app/client', requestBody, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

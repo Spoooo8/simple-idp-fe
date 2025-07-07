@@ -12,7 +12,7 @@ const User = () => {
     try {
       const token = sessionStorage.getItem('access_token');
 
-      const response = await axios.get(`https://user-service-zvct.onrender.com/users/${clientId}/client`, {
+      const response = await axios.get(`https://user-service-production-08be.up.railway.app/users/${clientId}/client`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

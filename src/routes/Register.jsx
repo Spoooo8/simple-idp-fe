@@ -28,7 +28,7 @@ function Register({ onClose }) {
 
     try {
       // Step 1: Register user
-      await axios.post('https://user-service-zvct.onrender.com/users', {
+      await axios.post('https://user-service-production-08be.up.railway.app/users', {
         name: name,
         email: email,
         password: password,
