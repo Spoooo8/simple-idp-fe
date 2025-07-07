@@ -19,7 +19,7 @@ function Register({ onClose }) {
   const setters = { setName, setEmail, setPassword };
 
   const clientId = 'unilinkauth';
-  const authorizationEndpoint = 'https://identity-auth-server.onrender.com/oauth2/authorize';
+  const authorizationEndpoint = 'https://identity-auth-server-production.up.railway.app/oauth2/authorize';
   const redirectUri = 'https://simpleidp.netlify.app/callback';
   const scope = 'openid email';
 
@@ -36,7 +36,7 @@ function Register({ onClose }) {
       });
 
       // Step 2: Login user
-      await axios.post('https://identity-auth-server.onrender.com/api/login', {
+      await axios.post('https://identity-auth-server-production.up.railway.app/api/login', {
         email: email,
         password: password,
       }, { withCredentials: true });

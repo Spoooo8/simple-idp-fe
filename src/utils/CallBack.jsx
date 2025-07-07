@@ -23,7 +23,7 @@ function Callback() {
         return;
       }
 
-      const tokenUrl = 'https://identity-auth-server.onrender.com/oauth2/token';
+      const tokenUrl = 'https://identity-auth-server-production.up.railway.app/oauth2/token';
 
       const data = new URLSearchParams({
         grant_type: 'authorization_code',
